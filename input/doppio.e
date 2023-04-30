@@ -1,2 +1,2 @@
-def doppio(x)
+fun doppio(x)
     x*2;

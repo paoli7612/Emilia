@@ -2,6 +2,11 @@
 
 all: emilia
 
+run: emilia
+	./emilia input/main.e
+	g++ output/*
+	./a.out
+
 emilia: bin/driver.o bin/parser.o bin/scanner.o bin/emilia.o
 	clang++ -o emilia bin/driver.o bin/parser.o bin/scanner.o bin/emilia.o `llvm-config --cxxflags --ldflags --libs --libfiles --system-libs`
 

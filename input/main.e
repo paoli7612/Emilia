@@ -1,2 +1,2 @@
-def main()
-    56;
+fun myMain()
+    4 * 2;

@@ -3,11 +3,11 @@
 using namespace std;
 
 extern "C" {
-    double doppio(double);
+    double myMain();
 }
 
 int main(int argc, char const *argv[])
 {
-    cout << doppio(5);
+    cout << "myFun() -> " << myMain() << endl;
     return 0;
 }

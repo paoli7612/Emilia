@@ -42,7 +42,7 @@
   LPAREN     "("
   RPAREN     ")"
   EXTERN     "extern"
-  DEF        "def"
+  FUN        "fun"
   IF         "if"
   WHILE      "while"
   FOR        "for"
@@ -78,7 +78,7 @@ top:
 | exp                  { $$ = $1; $1->toggle(); };
 
 definition:
-  "def" proto exp      { $$ = new FunctionAST($2,$3); $2->noemit(); };
+  "fun" proto exp      { $$ = new FunctionAST($2,$3); $2->noemit(); };
 
 external:
   "extern" proto       { $$ = $2; };
