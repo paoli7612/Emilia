@@ -1,2 +1,3 @@
+extern print (i) ;
 fun myMain()
-    4 * 2;
+    print(7843);
