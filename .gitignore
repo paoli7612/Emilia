@@ -1,2 +1,5 @@
 *.o
 .vscode
+src/parser.cc
+src/parser.hh
+src/scanner.cc
