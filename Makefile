@@ -5,8 +5,8 @@ ARGS2=-I/usr/lib/llvm-15/include -std=c++17 -fno-exceptions -D_GNU_SOURCE -D__ST
 
 all: kfe
 
-kfe: bin/driver.o bin/parser.o bin/scanner.o bin/kfe.o bin/ifExprAST.o bin/seqAST.o bin/functionAST.o bin/prototypeAST.o bin/exprAST.o bin/numberExprAST.o bin/variableExprAST.o bin/binaryExprAST.o bin/unaryExprAST.o bin/callExprAST.o bin/printAST.o bin/varExprAST.o bin/whileExprAST.o bin/forExprAST.o
-	clang++ -o kfe bin/driver.o bin/parser.o bin/scanner.o bin/kfe.o bin/ifExprAST.o bin/seqAST.o bin/functionAST.o bin/exprAST.o bin/numberExprAST.o bin/prototypeAST.o bin/variableExprAST.o bin/binaryExprAST.o bin/unaryExprAST.o bin/callExprAST.o bin/printAST.o bin/varExprAST.o bin/whileExprAST.o bin/forExprAST.o `llvm-config --cxxflags --ldflags --libs --libfiles --system-libs` 
+kfe: bin/driver.o bin/parser.o bin/scanner.o bin/kfe.o bin/ifExprAST.o bin/seqAST.o bin/functionAST.o bin/prototypeAST.o bin/exprAST.o bin/numberExprAST.o bin/variableExprAST.o bin/binaryExprAST.o bin/unaryExprAST.o bin/callExprAST.o bin/varExprAST.o bin/whileExprAST.o bin/forExprAST.o
+	clang++ -o kfe bin/driver.o bin/parser.o bin/scanner.o bin/kfe.o bin/ifExprAST.o bin/seqAST.o bin/functionAST.o bin/exprAST.o bin/numberExprAST.o bin/prototypeAST.o bin/variableExprAST.o bin/binaryExprAST.o bin/unaryExprAST.o bin/callExprAST.o bin/varExprAST.o bin/whileExprAST.o bin/forExprAST.o `llvm-config --cxxflags --ldflags --libs --libfiles --system-libs` 
 
 bin/kfe.o: src/kfe.cc src/driver.hh src/AST/Utils/LogError.hh
 	clang++ -o bin/kfe.o -c src/kfe.cc $(ARGS2)
@@ -52,9 +52,6 @@ bin/callExprAST.o: src/AST/CallExprAST.cc src/AST/CallExprAST.hh
 	
 bin/forExprAST.o: src/AST/ForExprAST.cc src/AST/ForExprAST.hh 
 	clang++ -o bin/forExprAST.o -c src/AST/ForExprAST.cc  $(ARGS) 
-	
-bin/printAST.o: src/AST/PrintAST.cc src/AST/PrintAST.hh 
-	clang++ -o bin/printAST.o -c src/AST/PrintAST.cc  $(ARGS) 
 	
 bin/varExprAST.o: src/AST/VarExprAST.cc src/AST/VarExprAST.hh 
 	clang++ -o bin/varExprAST.o -c src/AST/VarExprAST.cc  $(ARGS) 

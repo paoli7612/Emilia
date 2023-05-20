@@ -3,8 +3,8 @@ extern echo(double);
 def man(input)
 if !(input < 5)
     then
-        echo(input)
+        echo(input*2)
     else
-        input
+        echo(-input)
     end
 ;

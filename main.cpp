@@ -10,6 +10,9 @@ extern "C" {
 
 int main(int argc, char const *argv[])
 {
-    man(13);
+    std::cout << "____________________________________________" << std::endl;
+    double a;
+    cin >> a;
+    man(a);
     return 0;
 }

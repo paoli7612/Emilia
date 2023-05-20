@@ -37,7 +37,6 @@
 # include "AST/UnaryExprAST.hh"
 # include "AST/CallExprAST.hh"
 # include "AST/ForExprAST.hh"
-# include "AST/PrintAST.hh"
 # include "AST/VarExprAST.hh"
 # include "AST/WhileExprAST.hh"
 }
@@ -73,7 +72,6 @@
   FOR        "for"
   IN         "in"
   ENDKW      "end"
-  PRINT      "print"
   VAR        "var"
   WHILE      "while"
   ARROF      "arrof"
@@ -95,7 +93,6 @@
 %type <PrototypeAST*> external
 %type <PrototypeAST*> proto
 %type <std::vector<std::string>> idseq
-%type <ExprAST*> print
 %type <ExprAST*> varexp
 %type <ExprAST*> assignment
 %type <std::pair<std::string,ExprAST*>> pair
@@ -165,7 +162,6 @@ exp:
 | exp ":" exp           { $$ = new BinaryExprAST(':', $1, $3); }
 | ifexp                 { $$ = $1; }
 | forexp                { $$ = $1; }
-| print %prec PRINT     { $$ = $1; }
 | varexp                { $$ = $1; }
 | assignment            { $$ = $1; }
 | whilexp               { $$ = $1; }
@@ -205,10 +201,6 @@ step:
 
 whilexp:
   WHILE exp IN exp ENDKW { $$ = new WhileExprAST($2, $4); }
-;
-
-print:
-  PRINT "(" exp ")"       { $$ = new PrintAST($3); }
 ;
 
 varexp:
