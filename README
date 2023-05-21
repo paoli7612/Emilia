@@ -1,5 +1,11 @@
-Versione 1.0 (senza strutture di controllo):
-front-end che termina con la produzione dell'IR
-Opzionalmente, crea anche un file oggetto (opzione -o <nomefile>).
-Con l'opzione -v produce anche (su stdout) una rappresentazione dell'AST
-(essenzialmente a fini di debug).
+# Emilia
+### Linguaggio di programmazione
+---
+
+### Scelte di sviluppo
+- File sorgenti .em
+    - Per poter dire: "in cosa stai programmando? Io in un linguaggio in cui i file sono punto ehm"
+- Funzione echo e non print
+    - Torna a gran voce echo per poter risollevare la discussione se si pronuncia come la parola italiana **eco** o come la parola **vecchio** in dialetto senza la v "ecio"
+- Fun e non def, void, function, ...
+    - Parola chiave per dichiarare una funzione. Se integer diventa int, allora anche function diventa fun (e per la traduzione inglese)
