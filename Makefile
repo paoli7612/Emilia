@@ -3,74 +3,74 @@ ARGS2=-I/usr/lib/llvm-15/include -std=c++17 -fno-exceptions -D_GNU_SOURCE -D__ST
 
 .PHONY: clean all
 
-all: kfe
+all: emilia
 
-kfe: bin/driver.o bin/parser.o bin/scanner.o bin/kfe.o bin/ifExprAST.o bin/seqAST.o bin/functionAST.o bin/prototypeAST.o bin/exprAST.o bin/numberExprAST.o bin/variableExprAST.o bin/binaryExprAST.o bin/unaryExprAST.o bin/callExprAST.o bin/varExprAST.o bin/whileExprAST.o bin/forExprAST.o
-	clang++ -o kfe bin/driver.o bin/parser.o bin/scanner.o bin/kfe.o bin/ifExprAST.o bin/seqAST.o bin/functionAST.o bin/exprAST.o bin/numberExprAST.o bin/prototypeAST.o bin/variableExprAST.o bin/binaryExprAST.o bin/unaryExprAST.o bin/callExprAST.o bin/varExprAST.o bin/whileExprAST.o bin/forExprAST.o `llvm-config --cxxflags --ldflags --libs --libfiles --system-libs` 
+emilia: bin/driver.o bin/parser.o bin/scanner.o bin/emilia.o bin/ifExprAST.o bin/seqAST.o bin/functionAST.o bin/prototypeAST.o bin/exprAST.o bin/numberExprAST.o bin/variableExprAST.o bin/binaryExprAST.o bin/unaryExprAST.o bin/callExprAST.o bin/varExprAST.o bin/whileExprAST.o bin/forExprAST.o
+	clang++ -o emilia bin/driver.o bin/parser.o bin/scanner.o bin/emilia.o bin/ifExprAST.o bin/seqAST.o bin/functionAST.o bin/exprAST.o bin/numberExprAST.o bin/prototypeAST.o bin/variableExprAST.o bin/binaryExprAST.o bin/unaryExprAST.o bin/callExprAST.o bin/varExprAST.o bin/whileExprAST.o bin/forExprAST.o `llvm-config --cxxflags --ldflags --libs --libfiles --system-libs` 
 
-bin/kfe.o: src/kfe.cc src/driver.hh src/AST/Utils/LogError.hh
-	clang++ -o bin/kfe.o -c src/kfe.cc $(ARGS2)
+bin/emilia.o: src/emilia.cpp src/driver.hpp src/AST/Utils/LogError.hpp
+	clang++ -o bin/emilia.o -c src/emilia.cpp $(ARGS2)
 	
-bin/parser.o: src/parser.cc
-	clang++ -o bin/parser.o -c src/parser.cc $(ARGS2)
+bin/parser.o: src/parser.cpp
+	clang++ -o bin/parser.o -c src/parser.cpp $(ARGS2)
 	
-bin/scanner.o: src/scanner.cc src/parser.hh
-	clang++ -o bin/scanner.o -c src/scanner.cc  $(ARGS) 
+bin/scanner.o: src/scanner.cpp src/parser.hpp
+	clang++ -o bin/scanner.o -c src/scanner.cpp  $(ARGS) 
 	
-bin/driver.o: src/driver.cc src/parser.hh src/driver.hh
-	clang++ -o bin/driver.o -c src/driver.cc $(ARGS2) 
+bin/driver.o: src/driver.cpp src/parser.hpp src/driver.hpp
+	clang++ -o bin/driver.o -c src/driver.cpp $(ARGS2) 
 
-bin/ifExprAST.o: src/AST/IfExprAST.cc src/AST/IfExprAST.hh 
-	clang++ -o bin/ifExprAST.o -c src/AST/IfExprAST.cc  $(ARGS) 
+bin/ifExprAST.o: src/AST/IfExprAST.cpp src/AST/IfExprAST.hpp 
+	clang++ -o bin/ifExprAST.o -c src/AST/IfExprAST.cpp  $(ARGS) 
 	
-bin/seqAST.o: src/AST/SeqAST.cc src/AST/SeqAST.hh 
-	clang++ -o bin/seqAST.o -c src/AST/SeqAST.cc  $(ARGS) 
+bin/seqAST.o: src/AST/SeqAST.cpp src/AST/SeqAST.hpp 
+	clang++ -o bin/seqAST.o -c src/AST/SeqAST.cpp  $(ARGS) 
 	
-bin/prototypeAST.o: src/AST/PrototypeAST.cc src/AST/PrototypeAST.hh 
-	clang++ -o bin/prototypeAST.o -c src/AST/PrototypeAST.cc  $(ARGS) 
+bin/prototypeAST.o: src/AST/PrototypeAST.cpp src/AST/PrototypeAST.hpp 
+	clang++ -o bin/prototypeAST.o -c src/AST/PrototypeAST.cpp  $(ARGS) 
 
-bin/functionAST.o: src/AST/FunctionAST.cc src/AST/FunctionAST.hh 
-	clang++ -o bin/functionAST.o -c src/AST/FunctionAST.cc  $(ARGS) 
+bin/functionAST.o: src/AST/FunctionAST.cpp src/AST/FunctionAST.hpp 
+	clang++ -o bin/functionAST.o -c src/AST/FunctionAST.cpp  $(ARGS) 
 	
-bin/exprAST.o: src/AST/ExprAST.cc src/AST/ExprAST.hh 
-	clang++ -o bin/exprAST.o -c src/AST/ExprAST.cc  $(ARGS) 
+bin/exprAST.o: src/AST/ExprAST.cpp src/AST/ExprAST.hpp 
+	clang++ -o bin/exprAST.o -c src/AST/ExprAST.cpp  $(ARGS) 
 	
-bin/numberExprAST.o: src/AST/NumberExprAST.cc src/AST/NumberExprAST.hh 
-	clang++ -o bin/numberExprAST.o -c src/AST/NumberExprAST.cc  $(ARGS) 
+bin/numberExprAST.o: src/AST/NumberExprAST.cpp src/AST/NumberExprAST.hpp 
+	clang++ -o bin/numberExprAST.o -c src/AST/NumberExprAST.cpp  $(ARGS) 
 	
-bin/variableExprAST.o: src/AST/VariableExprAST.cc src/AST/VariableExprAST.hh 
-	clang++ -o bin/variableExprAST.o -c src/AST/VariableExprAST.cc  $(ARGS) 
+bin/variableExprAST.o: src/AST/VariableExprAST.cpp src/AST/VariableExprAST.hpp 
+	clang++ -o bin/variableExprAST.o -c src/AST/VariableExprAST.cpp  $(ARGS) 
 	
-bin/binaryExprAST.o: src/AST/BinaryExprAST.cc src/AST/BinaryExprAST.hh 
-	clang++ -o bin/binaryExprAST.o -c src/AST/BinaryExprAST.cc  $(ARGS) 
+bin/binaryExprAST.o: src/AST/BinaryExprAST.cpp src/AST/BinaryExprAST.hpp 
+	clang++ -o bin/binaryExprAST.o -c src/AST/BinaryExprAST.cpp  $(ARGS) 
 
-bin/unaryExprAST.o: src/AST/UnaryExprAST.cc src/AST/UnaryExprAST.hh 
-	clang++ -o bin/unaryExprAST.o  -c src/AST/UnaryExprAST.cc  $(ARGS) 
+bin/unaryExprAST.o: src/AST/UnaryExprAST.cpp src/AST/UnaryExprAST.hpp 
+	clang++ -o bin/unaryExprAST.o  -c src/AST/UnaryExprAST.cpp  $(ARGS) 
 	
-bin/callExprAST.o: src/AST/CallExprAST.cc src/AST/CallExprAST.hh 
-	clang++ -o bin/callExprAST.o -c src/AST/CallExprAST.cc  $(ARGS) 
+bin/callExprAST.o: src/AST/CallExprAST.cpp src/AST/CallExprAST.hpp 
+	clang++ -o bin/callExprAST.o -c src/AST/CallExprAST.cpp  $(ARGS) 
 	
-bin/forExprAST.o: src/AST/ForExprAST.cc src/AST/ForExprAST.hh 
-	clang++ -o bin/forExprAST.o -c src/AST/ForExprAST.cc  $(ARGS) 
+bin/forExprAST.o: src/AST/ForExprAST.cpp src/AST/ForExprAST.hpp 
+	clang++ -o bin/forExprAST.o -c src/AST/ForExprAST.cpp  $(ARGS) 
 	
-bin/varExprAST.o: src/AST/VarExprAST.cc src/AST/VarExprAST.hh 
-	clang++ -o bin/varExprAST.o -c src/AST/VarExprAST.cc  $(ARGS) 
+bin/varExprAST.o: src/AST/VarExprAST.cpp src/AST/VarExprAST.hpp 
+	clang++ -o bin/varExprAST.o -c src/AST/VarExprAST.cpp  $(ARGS) 
 	
-bin/whileExprAST.o: src/AST/WhileExprAST.cc src/AST/WhileExprAST.hh 
-	clang++ -o bin/whileExprAST.o -c src/AST/WhileExprAST.cc  $(ARGS) 
+bin/whileExprAST.o: src/AST/WhileExprAST.cpp src/AST/WhileExprAST.hpp 
+	clang++ -o bin/whileExprAST.o -c src/AST/WhileExprAST.cpp  $(ARGS) 
 	
-bin/arrayExprAST.o: src/AST/ArrayExprAST.cc src/AST/ArrayExprAST.hh 
-	clang++ -o bin/arrayExprAST.o -c src/AST/ArrayExprAST.cc  $(ARGS) 
+bin/arrayExprAST.o: src/AST/ArrayExprAST.cpp src/AST/ArrayExprAST.hpp 
+	clang++ -o bin/arrayExprAST.o -c src/AST/ArrayExprAST.cpp  $(ARGS) 
 	
-bin/arrayAssignExprAST.o: src/AST/ArrayAssignExprAST.cc src/AST/ArrayAssignExprAST.hh 
-	clang++ -o bin/arrayAssignExprAST.o -c src/AST/ArrayAssignExprAST.cc  $(ARGS) 
+bin/arrayAssignExprAST.o: src/AST/ArrayAssignExprAST.cpp src/AST/ArrayAssignExprAST.hpp 
+	clang++ -o bin/arrayAssignExprAST.o -c src/AST/ArrayAssignExprAST.cpp  $(ARGS) 
 	
-src/parser.cc, src/parser.hh: src/parser.yy 
-	bison -o src/parser.cc src/parser.yy -Wcounterexamples
+src/parser.cpp, src/parser.hpp: src/parser.yy 
+	bison -o src/parser.cpp src/parser.yy -Wcounterexamples
 
-src/scanner.cc: src/scanner.ll
-	flex -o src/scanner.cc src/scanner.ll
+src/scanner.cpp: src/scanner.ll
+	flex -o src/scanner.cpp src/scanner.ll
 
 clean:
 	rm -f bin/*.o*
-	rm src/parser.cc src/scanner.cc src/parser.hh
+	rm src/parser.cpp src/scanner.cpp src/parser.hpp -f

@@ -2,3 +2,5 @@
 2. src and bin folders
 3. kaleidoscope -> emilia
 4. run .o functions
+5. .hh e .cc in .hpp e .cpp
+6. 

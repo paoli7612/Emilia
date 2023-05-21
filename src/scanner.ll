@@ -4,8 +4,8 @@
 # include <cstdlib>
 # include <string>
 # include <cmath>
-# include "driver.hh"
-# include "parser.hh"
+# include "driver.hpp"
+# include "parser.hpp"
 
 // Work around an incompatibility in flex (at least versions
 // 2.5.31 through 2.5.33): it generates code that does
@@ -97,12 +97,12 @@ yy::parser::symbol_type check_keywords(std::string lexeme, yy::location& loc)  {
      return yy::parser::make_ELSE(loc);
    else if (lexeme == "for")
      return yy::parser::make_FOR(loc);
-   else if (lexeme == "in")
-     return yy::parser::make_IN(loc);
+   else if (lexeme == "do")
+     return yy::parser::make_DO(loc);
    else if (lexeme == "end")
      return yy::parser::make_ENDKW(loc);
-   else if (lexeme == "var")
-     return yy::parser::make_VAR(loc);
+   else if (lexeme == "with")
+     return yy::parser::make_WITH(loc);
    else if (lexeme == "while")
      return yy::parser::make_WHILE(loc);
    else if (lexeme == "arrof")

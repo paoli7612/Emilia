@@ -26,19 +26,19 @@
 %define parse.error verbose
 
 %code {
-# include "driver.hh"
-# include "AST/IfExprAST.hh"
-# include "AST/SeqAST.hh"
-# include "AST/FunctionAST.hh"
-# include "AST/PrototypeAST.hh"
-# include "AST/NumberExprAST.hh"
-# include "AST/VariableExprAST.hh"
-# include "AST/BinaryExprAST.hh"
-# include "AST/UnaryExprAST.hh"
-# include "AST/CallExprAST.hh"
-# include "AST/ForExprAST.hh"
-# include "AST/VarExprAST.hh"
-# include "AST/WhileExprAST.hh"
+# include "driver.hpp"
+# include "AST/IfExprAST.hpp"
+# include "AST/SeqAST.hpp"
+# include "AST/FunctionAST.hpp"
+# include "AST/PrototypeAST.hpp"
+# include "AST/NumberExprAST.hpp"
+# include "AST/VariableExprAST.hpp"
+# include "AST/BinaryExprAST.hpp"
+# include "AST/UnaryExprAST.hpp"
+# include "AST/CallExprAST.hpp"
+# include "AST/ForExprAST.hpp"
+# include "AST/VarExprAST.hpp"
+# include "AST/WhileExprAST.hpp"
 }
 
 %define api.token.prefix {TOK_}
@@ -70,9 +70,9 @@
   THEN       "then"
   ELSE       "else"
   FOR        "for"
-  IN         "in"
+  DO         "do"
   ENDKW      "end"
-  VAR        "var"
+  WITH        "with"
   WHILE      "while"
   ARROF      "arrof"
 ;
@@ -191,7 +191,7 @@ ifexp:
 ;
 
 forexp:
-  FOR "id" "=" exp "," exp step IN exp ENDKW { $$ = new ForExprAST($2, $4, $6, $7, $9); }
+  FOR "id" "=" exp "," exp step DO exp ENDKW { $$ = new ForExprAST($2, $4, $6, $7, $9); }
 ;
 
 step:
@@ -200,11 +200,11 @@ step:
 ;
 
 whilexp:
-  WHILE exp IN exp ENDKW { $$ = new WhileExprAST($2, $4); }
+  WHILE exp DO exp ENDKW { $$ = new WhileExprAST($2, $4); }
 ;
 
 varexp:
-  VAR varlist IN exp ENDKW     { $$ = new VarExprAST($2, $4); }
+  WITH varlist DO exp ENDKW     { $$ = new VarExprAST($2, $4); }
 ;
 
 varlist:
