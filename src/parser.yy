@@ -108,7 +108,6 @@
 %%
 %start startsymb;
 
-
 startsymb:
 program                 { drv.root = $1; };
 

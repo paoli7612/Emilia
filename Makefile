@@ -1,5 +1,4 @@
 ARGS=-I/usr/lib/llvm-15/include -std=c++17 -D_GNU_SOURCE -D__STDC_CONSTANT_MACROS -D__STDC_FORMAT_MACROS -D__STDC_LIMIT_MACROS
-ARGS2=-I/usr/lib/llvm-15/include -std=c++17 -fno-exceptions -D_GNU_SOURCE -D__STDC_CONSTANT_MACROS -D__STDC_FORMAT_MACROS -D__STDC_LIMIT_MACROS
 
 .PHONY: clean all
 
@@ -9,16 +8,16 @@ emilia: bin/driver.o bin/parser.o bin/scanner.o bin/emilia.o bin/ifExprAST.o bin
 	clang++ -o emilia bin/driver.o bin/parser.o bin/scanner.o bin/emilia.o bin/ifExprAST.o bin/seqAST.o bin/functionAST.o bin/exprAST.o bin/numberExprAST.o bin/prototypeAST.o bin/variableExprAST.o bin/binaryExprAST.o bin/unaryExprAST.o bin/callExprAST.o bin/varExprAST.o bin/whileExprAST.o bin/forExprAST.o `llvm-config --cxxflags --ldflags --libs --libfiles --system-libs` 
 
 bin/emilia.o: src/emilia.cpp src/driver.hpp src/AST/Utils/LogError.hpp
-	clang++ -o bin/emilia.o -c src/emilia.cpp $(ARGS2)
+	clang++ -o bin/emilia.o -c src/emilia.cpp $(ARGS)
 	
 bin/parser.o: src/parser.cpp
-	clang++ -o bin/parser.o -c src/parser.cpp $(ARGS2)
+	clang++ -o bin/parser.o -c src/parser.cpp $(ARGS)
 	
 bin/scanner.o: src/scanner.cpp src/parser.hpp
 	clang++ -o bin/scanner.o -c src/scanner.cpp  $(ARGS) 
 	
 bin/driver.o: src/driver.cpp src/parser.hpp src/driver.hpp
-	clang++ -o bin/driver.o -c src/driver.cpp $(ARGS2) 
+	clang++ -o bin/driver.o -c src/driver.cpp $(ARGS) 
 
 bin/ifExprAST.o: src/AST/IfExprAST.cpp src/AST/IfExprAST.hpp 
 	clang++ -o bin/ifExprAST.o -c src/AST/IfExprAST.cpp  $(ARGS) 
