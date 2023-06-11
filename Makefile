@@ -71,5 +71,5 @@ src/scanner.cpp: src/scanner.ll
 	flex -o src/scanner.cpp src/scanner.ll
 
 clean:
-	rm -f bin/*.o*
-	rm src/parser.cpp src/scanner.cpp src/parser.hpp -f
+	rm -f bin/*.o* src/parser.cpp src/scanner.cpp src/parser.hpp -f
+	rm -f emilia run run.o

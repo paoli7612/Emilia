@@ -1,7 +1,7 @@
 extern echo(double);
 extern gett(double);
 
-def man(input)
+fun man(input)
     with a = input, b = 2 do
         echo(a):
         echo(b):

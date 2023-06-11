@@ -76,8 +76,8 @@ comment \/\/.*
 %%
 
 yy::parser::symbol_type check_keywords(std::string lexeme, yy::location& loc)  {
-   if (lexeme == "def") 
-     return yy::parser::make_DEF(loc);
+   if (lexeme == "fun") 
+     return yy::parser::make_FUN(loc);
    else if (lexeme == "extern")
      return yy::parser::make_EXTERN(loc);
    else if (lexeme == "if")

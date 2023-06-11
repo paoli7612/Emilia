@@ -1,5 +1,5 @@
 extern echo(double);
 
-def man(input)
+fun man(input)
     echo(-input)
 ;

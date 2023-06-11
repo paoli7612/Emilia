@@ -1,6 +1,6 @@
 extern echo(double);
 
-def man(input)      // -> 22
+fun man(input)      // -> 22
     echo(-input):            // -22               
     echo(input*2):           // 44   
     echo(input*2 + input*3): // 110               

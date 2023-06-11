@@ -1,6 +1,6 @@
 extern echo(double);
 
-def man(n)
+fun man(n)
     with f1, f2 = 1, next do
         if (n < 1) then
             echo(0)

@@ -1,6 +1,6 @@
 extern echo(double);
 
-def man(input)
+fun man(input)
     with eta = 2023-input do
         if !(eta < 18) then
             echo(input*10)

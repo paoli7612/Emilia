@@ -1,6 +1,6 @@
 extern echo(double);
 
-def man(input)
+fun man(input)
     if input >= 100 then
         echo(1)
     else

@@ -65,7 +65,7 @@
   LSQUARE    "["
   RSQUARE    "]"
   EXTERN     "extern"
-  DEF        "def"
+  FUN        "fun"
   IF         "if"
   THEN       "then"
   ELSE       "else"
@@ -124,7 +124,7 @@ top:
 ;
 
 definition:
-  "def" proto exp       { $$ = new FunctionAST($2,$3); $2->noemit(); }
+  "fun" proto exp       { $$ = new FunctionAST($2,$3); $2->noemit(); }
 ;
 
 external:

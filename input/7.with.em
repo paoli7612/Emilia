@@ -1,6 +1,6 @@
 extern echo(double);
 
-def man(input)
+fun man(input)
     with a=input do        // a = input
         input = input-1:   // input -= 1
         echo(input):       // input è cambiata
