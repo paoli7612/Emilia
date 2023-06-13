@@ -4,7 +4,7 @@ using namespace std;
 
 extern "C" {
     double man(double);
-    void echo(double n) {std::cout << n << std::endl;}
+    void echo(double n) {std::cout << "\033[1;34m" << n <<"\033[0m\n";}
 }
 
 int main(int argc, char const *argv[])

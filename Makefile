@@ -4,8 +4,8 @@ ARGS=-I/usr/lib/llvm-15/include -std=c++17 -D_GNU_SOURCE -D__STDC_CONSTANT_MACRO
 
 all: emilia
 
-emilia: bin/driver.o bin/parser.o bin/scanner.o bin/emilia.o bin/ifExprAST.o bin/seqAST.o bin/functionAST.o bin/prototypeAST.o bin/exprAST.o bin/numberExprAST.o bin/variableExprAST.o bin/binaryExprAST.o bin/unaryExprAST.o bin/callExprAST.o bin/varExprAST.o bin/whileExprAST.o bin/forExprAST.o
-	clang++ -o emilia bin/driver.o bin/parser.o bin/scanner.o bin/emilia.o bin/ifExprAST.o bin/seqAST.o bin/functionAST.o bin/exprAST.o bin/numberExprAST.o bin/prototypeAST.o bin/variableExprAST.o bin/binaryExprAST.o bin/unaryExprAST.o bin/callExprAST.o bin/varExprAST.o bin/whileExprAST.o bin/forExprAST.o `llvm-config --cxxflags --ldflags --libs --libfiles --system-libs` 
+emilia: bin/driver.o bin/parser.o bin/scanner.o bin/emilia.o bin/ifExprAST.o bin/seqAST.o bin/functionAST.o bin/prototypeAST.o bin/exprAST.o bin/numberExprAST.o bin/variableExprAST.o bin/binaryExprAST.o bin/unaryExprAST.o bin/callExprAST.o bin/varExprAST.o bin/whileExprAST.o bin/forExprAST.o bin/arrayAssignExprAST.o bin/arrayExprAST.o
+	clang++ -o emilia bin/driver.o bin/parser.o bin/scanner.o bin/emilia.o bin/ifExprAST.o bin/seqAST.o bin/functionAST.o bin/exprAST.o bin/numberExprAST.o bin/prototypeAST.o bin/variableExprAST.o bin/binaryExprAST.o bin/unaryExprAST.o bin/callExprAST.o bin/varExprAST.o bin/whileExprAST.o bin/forExprAST.o bin/arrayAssignExprAST.o bin/arrayExprAST.o `llvm-config --cxxflags --ldflags --libs --libfiles --system-libs` 
 
 bin/emilia.o: src/emilia.cpp src/driver.hpp src/AST/Utils/LogError.hpp
 	clang++ -o bin/emilia.o -c src/emilia.cpp $(ARGS)

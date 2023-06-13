@@ -48,5 +48,5 @@ Value *ArrayExprAST::codegen(driver &drv)
         indexInteger,
         "arrayAccess"
     );
-    return drv.builder->CreateLoad(offsetPosition, "accessedValue");
+    return drv.builder->CreateLoad(Type::getDoubleTy(*drv.context), offsetPosition, "accessedValue");
 }
