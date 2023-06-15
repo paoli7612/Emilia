@@ -43,6 +43,7 @@ comment \/\/.*
 "*"      return yy::parser::make_STAR      (loc);
 "/"      return yy::parser::make_SLASH     (loc);
 "%"      return yy::parser::make_MODULO    (loc);
+"^"      return yy::parser::make_CARET     (loc);
 "("      return yy::parser::make_LPAREN    (loc);
 ")"      return yy::parser::make_RPAREN    (loc);
 ";"      return yy::parser::make_SEMICOLON (loc);

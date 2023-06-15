@@ -71,7 +71,20 @@ Value *BinaryExprAST::codegen(driver &drv)
     case '%':
         return drv.builder->CreateFRem(L, R, "remregister");
     case '^':
-        return drv.builder->CreateFRem(L, R, "pow");
+    {
+        if (!L || !R)
+            return nullptr;
+
+        Function *powFunc = Intrinsic::getDeclaration(drv.module, Intrinsic::pow, {L->getType()});
+        if (!powFunc)
+        {
+            LogErrorV("Intrinsic function 'pow' not found");
+            return nullptr;
+        }
+
+        std::vector<Value *> args{L, R};
+        return drv.builder->CreateCall(powFunc, args, "powregister");
+    }
     case '<':
     {
         auto cond = drv.builder->CreateFCmpULT(L, R, "compregister");
@@ -102,6 +115,7 @@ Value *BinaryExprAST::codegen(driver &drv)
         auto cond = drv.builder->CreateFCmpUNE(L, R, "compregister");
         return comparisonToFP(drv, cond);
     }
+
     case ':':
         return R;
     default:

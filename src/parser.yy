@@ -53,6 +53,7 @@
   STAR       "*"
   SLASH      "/"
   MODULO     "%"
+  CARET      "^"
   GT         ">"
   LT         "<"
   GE         ">="
@@ -108,7 +109,7 @@
 %left "!"
 %left "<" ">" EQ NE LE GE
 %left "+" "-" "%"
-%left "*" "/"
+%left "*" "/" "^"
 
 %%
 %start startsymb;
@@ -153,6 +154,7 @@ exp:
 | exp "*" exp           { $$ = new BinaryExprAST('*',$1,$3); }
 | exp "/" exp           { $$ = new BinaryExprAST('/',$1,$3); }
 | exp "%" exp           { $$ = new BinaryExprAST('%',$1,$3); }
+| exp "^" exp           { $$ = new BinaryExprAST('^',$1,$3); }
 | exp LE  exp %prec LE  { $$ = new BinaryExprAST('l',$1,$3); }
 | exp GE  exp %prec GE  { $$ = new BinaryExprAST('g',$1,$3); }
 | exp "<" exp           { $$ = new BinaryExprAST('<',$1,$3); }
@@ -163,7 +165,7 @@ exp:
 | "(" exp ")"           { $$ = $2; }
 | "number"              { $$ = new NumberExprAST($1); }
 | "-" exp               { $$ = new UnaryExprAST('-', $2); }
-| "!" exp          { $$ = new UnaryExprAST('!', $2); }
+| "!" exp               { $$ = new UnaryExprAST('!', $2); }
 | exp ":" exp           { $$ = new BinaryExprAST(':', $1, $3); }
 | ifexp                 { $$ = $1; }
 | forexp                { $$ = $1; }
