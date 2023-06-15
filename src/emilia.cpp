@@ -5,9 +5,6 @@ int main(int argc, char *argv[])
 {
     int res = 0;
     driver drv;
-    /***********************************************************************/
-    /********* Inizializzazione del target (local machine) *****************/
-    /***********************************************************************/
     InitializeAllTargetInfos();
     InitializeAllTargets();
     InitializeAllTargetMCs();
@@ -23,41 +20,32 @@ int main(int argc, char *argv[])
         errs() << Error;
         return 1;
     }
-    /************************** Set-up macchina target ********************/
     auto CPU = "generic";
     auto Features = "";
     TargetOptions opt;
     auto RM = Optional<Reloc::Model>();
-    auto TheTargetMachine =
-        Target->createTargetMachine(TargetTriple, CPU, Features, opt, RM);
-    /************************* Configurazione del modulo *****************/
+    auto TheTargetMachine = Target->createTargetMachine(TargetTriple, CPU, Features, opt, RM);
     drv.module->setDataLayout(TheTargetMachine->createDataLayout());
     drv.module->setTargetTriple(TargetTriple);
-    /***********************************************************************/
-    /************* Fine set-up per creazione codice oggetto ****************/
-    /***********************************************************************/
     int i = 1;
-    std::string Filename = ""; // Il default è che il codice oggetto non viene generato
+    std::string file_name = "";
     while (i < argc)
     {
         if (argv[i] == std::string("-p"))
-            drv.trace_parsing = true; // Abilita tracce debug nel parser
+            drv.trace_parsing = true;
         else if (argv[i] == std::string("-s"))
-            drv.trace_scanning = true; // Abilita tracce debug nello scanner
+            drv.trace_scanning = true;
         else if (argv[i] == std::string("-v"))
-            drv.ast_print = true; // Stampa una rapp. esterna dell'AST
+            drv.ast_print = true;
         else if (argv[i] == std::string("-o"))
-            Filename = argv[++i] + (std::string) ".o"; // Crea codice oggetto nel file indicato
+            file_name = argv[++i] + (std::string) ".o";
         else if (!drv.parse(argv[i]))
-        {                  // Parsing e creazione dell'AST
-            drv.codegen(); // Visita AST e generazione dell'IR (su stdout)
-            if (Filename != "")
+        {
+            drv.codegen();
+            if (file_name != "")
             {
-                /*****************************************************************/
-                /******************** Generazione codice oggetto *****************/
-                /*****************************************************************/
                 std::error_code EC;
-                raw_fd_ostream dest(Filename, EC, sys::fs::OF_None);
+                raw_fd_ostream dest(file_name, EC, sys::fs::OF_None);
                 if (EC)
                 {
                     errs() << "Could not open file: " << EC.message();
@@ -70,14 +58,16 @@ int main(int argc, char *argv[])
                     errs() << "TheTargetMachine can't emit a file of this type";
                     return 1;
                 }
-                pass.run(*drv.module); // Compilazione dell'IR prodotto dal frontend
+                pass.run(*drv.module);
                 dest.flush();
-                outs() << "Wrote " << Filename << "\n";
+                outs() << "Wrote " << file_name << "\n";
                 return 0;
             }
         }
         else
+        {
             res = 1;
+        }
         i++;
     };
     return res;

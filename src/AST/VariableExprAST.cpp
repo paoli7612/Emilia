@@ -1,35 +1,32 @@
 #include "VariableExprAST.hpp"
 #include "Utils/LogError.hpp"
 
-/****************** Variable Expression TreeAST *******************/
 VariableExprAST::VariableExprAST(std::string &Name) : Name(Name) { top = false; };
 
 const std::string &VariableExprAST::getName() const
 {
-  return Name;
+    return Name;
 };
 
 void VariableExprAST::visit()
 {
-  std::cout << getName() << " ";
+    std::cout << getName() << " ";
 };
 
 Value *VariableExprAST::codegen(driver &drv)
 {
-  if (gettop())
-    return TopExpression(this, drv);
-    
-  auto *V = drv.NamedValues[Name];
-  if (!V)
-    LogErrorV(Name + " Variabile non definita");
+    if (gettop())
+        return TopExpression(this, drv);
 
-  if(V->isArrayAllocation())
-    return V;
-  
-  return drv.builder->CreateLoad(
-    V->getAllocatedType(), 
-    V, 
-    Name.c_str()
-  );
+    auto *V = drv.NamedValues[Name];
+    if (!V)
+        LogErrorV(Name + " Variabile non definita");
 
+    if (V->isArrayAllocation())
+        return V;
+
+    return drv.builder->CreateLoad(
+        V->getAllocatedType(),
+        V,
+        Name.c_str());
 };

@@ -3,17 +3,17 @@
 
 #include "ExprAST.hpp"
 
-/// BinaryExprAST - Classe per la rappresentazione di operatori binary
-class BinaryExprAST : public ExprAST {
+class BinaryExprAST : public ExprAST
+{
 private:
-  char Op;
-  ExprAST* LHS;
-  ExprAST* RHS;
+    char Op;
+    ExprAST *LHS;
+    ExprAST *RHS;
 
 public:
-  BinaryExprAST(char Op, ExprAST* LHS, ExprAST* RHS);
-  void visit() override;
-  Value *codegen(driver& drv) override;
+    BinaryExprAST(char Op, ExprAST *LHS, ExprAST *RHS);
+    void visit() override;
+    Value *codegen(driver &drv) override;
 };
 
-#endif // !BINARY_EXPR_AST_HPP
+#endif

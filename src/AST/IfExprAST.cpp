@@ -1,7 +1,6 @@
 #include "IfExprAST.hpp"
 
-IfExprAST::IfExprAST(ExprAST* Condition, ExprAST* Then, ExprAST* Else)
-	: Condition(Condition), Then(Then), Else(Else)
+IfExprAST::IfExprAST(ExprAST* Condition, ExprAST* Then, ExprAST* Else): Condition(Condition), Then(Then), Else(Else)
 {
 	top = false;
 }

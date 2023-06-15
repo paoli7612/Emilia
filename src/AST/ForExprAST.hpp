@@ -3,7 +3,6 @@
 
 #include "ExprAST.hpp"
 
-/// ForExpAst - Classe che rappresenta la definizione di un for
 class ForExprAST : public ExprAST {
 private:
     std::string VarName;
@@ -24,4 +23,4 @@ public:
     Value *codegen(driver& drv) override;
 };
 
-#endif // !FOR_EXPR_AST_HPP
+#endif 

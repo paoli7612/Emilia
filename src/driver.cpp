@@ -4,7 +4,6 @@
 #include "AST/FunctionAST.hpp"
 #include "AST/Utils/LogError.hpp"
 
-/*************************** Driver class *************************/
 driver::driver() : trace_parsing(false), trace_scanning(false), ast_print(false)
 {
 	context = new LLVMContext;
@@ -35,10 +34,7 @@ void driver::codegen()
 Value *TopExpression(ExprAST *E, driver &drv)
 {
 	E->toggle();
-	PrototypeAST *Proto = new PrototypeAST(
-		"__espr_anonima" + std::to_string(++drv.Cnt),
-		std::vector<std::string>()
-	);
+	PrototypeAST *Proto = new PrototypeAST("__espr_anonima" + std::to_string(++drv.Cnt), std::vector<std::string>());
 	Proto->noemit();
 	FunctionAST *F = new FunctionAST(std::move(Proto), E);
 	auto *FnIR = F->codegen(drv);
@@ -47,29 +43,18 @@ Value *TopExpression(ExprAST *E, driver &drv)
 };
 
 AllocaInst *CreateEntryBlockAlloca(
-	driver& drv,
+	driver &drv,
 	Function *TheFunction,
 	const std::string &VarName,
-	const Value* ArraySize
-)
+	const Value *ArraySize)
 {
 	IRBuilder<> TmpB(
 		&TheFunction->getEntryBlock(),
-		TheFunction->getEntryBlock().begin()
-	);
-	
-	Value* ActualSize = (Value*)ArraySize;
-	if(!ArraySize)
-		return TmpB.CreateAlloca(
-			Type::getDoubleTy(*drv.context),
-			0,
-			VarName.c_str()
-		);
+		TheFunction->getEntryBlock().begin());
 
+	Value *ActualSize = (Value *)ArraySize;
+	if (!ArraySize)
+		return TmpB.CreateAlloca(Type::getDoubleTy(*drv.context), 0, VarName.c_str());
 
-	return TmpB.CreateAlloca(
-		Type::getDoubleTy(*drv.context), 
-		ActualSize, 
-		VarName.c_str()
-	);
+	return TmpB.CreateAlloca(Type::getDoubleTy(*drv.context), ActualSize, VarName.c_str());
 }

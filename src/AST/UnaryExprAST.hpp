@@ -3,16 +3,16 @@
 
 #include "ExprAST.hpp"
 
-/// BinaryExprAST - Classe per la rappresentazione di operatori unari
-class UnaryExprAST : public ExprAST {
+class UnaryExprAST : public ExprAST
+{
 private:
-  char Op;
-  ExprAST* Expr;
+    char Op;
+    ExprAST *Expr;
 
 public:
-  UnaryExprAST(char Op, ExprAST* Expr);
-  void visit() override;
-  Value *codegen(driver& drv) override;
+    UnaryExprAST(char Op, ExprAST *Expr);
+    void visit() override;
+    Value *codegen(driver &drv) override;
 };
 
-#endif // !UNARY_EXPR_AST_HPP
+#endif

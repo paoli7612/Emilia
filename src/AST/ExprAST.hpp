@@ -3,18 +3,20 @@
 
 #include "RootAST.hpp"
 
-/// ExprAST - Classe base per tutti i nodi espressione
-class ExprAST : public RootAST {
+class ExprAST : public RootAST
+{
 protected:
-  bool top;
+    bool top;
+
 public:
-  virtual ~ExprAST() {};
-  void toggle();
-  void setIsSize();
-  bool getIsSize();
-  bool gettop();
+    virtual ~ExprAST(){};
+    void toggle();
+    void setIsSize();
+    bool getIsSize();
+    bool gettop();
+
 private:
-  bool isSize = false;
+    bool isSize = false;
 };
 
 #endif // !EXPR_AST_HPP

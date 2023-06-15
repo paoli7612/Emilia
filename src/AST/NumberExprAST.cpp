@@ -1,6 +1,5 @@
 #include "NumberExprAST.hpp"
 
-/********************* Number Expression Tree *********************/
 NumberExprAST::NumberExprAST(double Val): Val(Val) { top = false; };
 void NumberExprAST::visit() {
   std::cout << Val << " ";

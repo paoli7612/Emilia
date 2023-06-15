@@ -1,11 +1,7 @@
 #include "VarExprAST.hpp"
 #include "Utils/LogError.hpp"
 
-/****************** Var Expression TreeAST *******************/
-VarExprAST::VarExprAST(
-	std::vector<std::pair<std::string, ExprAST *>> VarNames,
-	ExprAST *Body
-) 
+VarExprAST::VarExprAST(std::vector<std::pair<std::string, ExprAST *>> VarNames, ExprAST *Body)
 	: VarNames(VarNames), Body(Body)
 {
 	top = false;
@@ -14,7 +10,7 @@ VarExprAST::VarExprAST(
 void VarExprAST::visit()
 {
 	std::cout << "var ";
-	for (auto &Var : VarNames) 
+	for (auto &Var : VarNames)
 	{
 		std::cout << Var.first << " = ";
 		Var.second->visit();
@@ -30,10 +26,10 @@ Value *VarExprAST::codegen(driver &drv)
 
 	Function *TheFunction = drv.builder->GetInsertBlock()->getParent();
 
-	for (auto &Var : VarNames) 
+	for (auto &Var : VarNames)
 	{
 		const std::string &VarName = Var.first;
-		ExprAST* Init = Var.second;
+		ExprAST *Init = Var.second;
 
 		Value *InitVal = Init->codegen(drv);
 		if (!InitVal)
@@ -41,14 +37,9 @@ Value *VarExprAST::codegen(driver &drv)
 
 		AllocaInst *Alloca;
 
-		// IsSize is set if varexpr is an array initialization
-		if(Init->getIsSize())
+		if (Init->getIsSize())
 		{
-			Value* blocks = drv.builder->CreateFPToUI(
-				InitVal, 
-				Type::getInt32Ty(*drv.context), 
-				"blocks"
-			);
+			Value *blocks = drv.builder->CreateFPToUI(InitVal, Type::getInt32Ty(*drv.context), "blocks");
 			Alloca = CreateEntryBlockAlloca(drv, TheFunction, VarName, blocks);
 		}
 		else

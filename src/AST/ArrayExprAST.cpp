@@ -1,12 +1,7 @@
 #include "ArrayExprAST.hpp"
 #include "Utils/LogError.hpp"
 
-/********************* Array Expression Tree ***********************/
-ArrayExprAST::ArrayExprAST(
-    std::string VarName,
-    ExprAST *Index
-) : VarName(VarName), Index(Index)
-{
+ArrayExprAST::ArrayExprAST(std::string VarName,ExprAST *Index) : VarName(VarName), Index(Index){
     top = false;
 };
 
@@ -42,11 +37,6 @@ Value *ArrayExprAST::codegen(driver &drv)
 
     Value* indexInteger = drv.builder->CreateFPToUI(idx, Type::getInt32Ty(*drv.context), "indexInteger");
     
-    Value* offsetPosition = drv.builder->CreateInBoundsGEP(
-        Type::getDoubleTy(*drv.context),
-        array,
-        indexInteger,
-        "arrayAccess"
-    );
+    Value* offsetPosition = drv.builder->CreateInBoundsGEP(Type::getDoubleTy(*drv.context),array,indexInteger,"arrayAccess");
     return drv.builder->CreateLoad(Type::getDoubleTy(*drv.context), offsetPosition, "accessedValue");
 }

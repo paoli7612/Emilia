@@ -1,12 +1,7 @@
 #include "ArrayAssignExprAST.hpp"
 #include "Utils/LogError.hpp"
 
-/********************* Array Expression Tree ***********************/
-ArrayAssignExprAST::ArrayAssignExprAST(
-    std::string VarName,
-    ExprAST* Index,
-    ExprAST* Val
-) : VarName(VarName), Index(Index), Val(Val)
+ArrayAssignExprAST::ArrayAssignExprAST(std::string VarName, ExprAST *Index, ExprAST *Val) : VarName(VarName), Index(Index), Val(Val)
 {
     top = false;
 };
@@ -27,33 +22,28 @@ Value *ArrayAssignExprAST::codegen(driver &drv)
         return TopExpression(this, drv);
 
     auto array = drv.NamedValues[VarName];
-    if(!array)
+    if (!array)
     {
         LogErrorV(VarName + " Variabile non definita");
         return nullptr;
     }
 
-    if(!array->isArrayAllocation())
+    if (!array->isArrayAllocation())
     {
-        LogErrorV(VarName +" Variabile non indicizzabile");
+        LogErrorV(VarName + " Variabile non indicizzabile");
         return nullptr;
     }
-    
+
     auto idx = Index->codegen(drv);
-    if(!idx)
+    if (!idx)
         return nullptr;
 
-    Value* indexInteger = drv.builder->CreateFPToUI(idx, Type::getInt32Ty(*drv.context), "indexInteger");
-    
-    Value* offsetPosition = drv.builder->CreateInBoundsGEP(
-        Type::getDoubleTy(*drv.context),
-        array,
-        indexInteger,
-        "arrayAccess"
-    );
+    Value *indexInteger = drv.builder->CreateFPToUI(idx, Type::getInt32Ty(*drv.context), "indexInteger");
+
+    Value *offsetPosition = drv.builder->CreateInBoundsGEP(Type::getDoubleTy(*drv.context), array, indexInteger, "arrayAccess");
 
     auto value = Val->codegen(drv);
-    if(!value)
+    if (!value)
         return nullptr;
 
     return drv.builder->CreateStore(value, offsetPosition);

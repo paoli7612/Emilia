@@ -3,16 +3,16 @@
 
 #include "RootAST.hpp"
 
-// Classe che rappresenta la sequenza di statement
-class SeqAST : public RootAST {
+class SeqAST : public RootAST
+{
 private:
-  RootAST* first;
-  RootAST* continuation;
+    RootAST *first;
+    RootAST *continuation;
 
 public:
-  SeqAST(RootAST* first, RootAST* continuation);
-  void visit() override;
-  Value *codegen(driver& drv) override;
+    SeqAST(RootAST *first, RootAST *continuation);
+    void visit() override;
+    Value *codegen(driver &drv) override;
 };
 
-#endif // !SEQ_AST_HPP
+#endif

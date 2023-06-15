@@ -3,7 +3,6 @@
 
 #include "ExprAST.hpp"
 
-/// ArrayAssignExprAST - Classe che rappresenta l'accesso ad un array in scrittura
 class ArrayAssignExprAST : public ExprAST {
 private:
 	std::string VarName;
@@ -17,4 +16,4 @@ public:
 };
 
 
-#endif // !ARRAY_ASSIGN_EXPR_AST_HPP
+#endif 

@@ -3,7 +3,6 @@
 
 #include "ExprAST.hpp"
 
-/// NumberExprAST - Classe per la rappresentazione di costanti numeriche
 class NumberExprAST : public ExprAST {
 private:
   double Val;
@@ -14,4 +13,4 @@ public:
   Value *codegen(driver& drv) override;
 };
 
-#endif // !NUMBER_EXPR_AST_HPP
+#endif
